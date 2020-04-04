@@ -1,0 +1,15 @@
+name: rconcr
+version: 0.1.0
+description: >
+  Client for the game server RCON (remote console) protocol.
+
+authors:
+  - Johannes Müller <straightshoota@gmail.com>
+
+crystal: 0.33.0
+
+license: Apache
+
+targets:
+  rconcr:
+    main: "src/cli.cr"

@@ -1,0 +1,9 @@
+language: crystal
+
+crystal:
+- latest
+- nightly
+
+script:
+- make test
+- make format CRYSTAL_OPTS=--check
