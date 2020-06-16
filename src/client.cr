@@ -30,6 +30,8 @@ class RCON::Client
   # :nodoc:
   HEADER_SIZE = 10
 
+  @closed = false
+
   # Opens a new connection to the server at *address*:*port* and authenticates
   # with *password*.
   # Yields the client instance to the block and ensures the connection is
