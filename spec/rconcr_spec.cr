@@ -42,9 +42,18 @@ private def run_test_server(host = "localhost", port = 0, handler = nil)
 end
 
 describe RCON do
-  it "test auth" do
-    run_test_server do |server|
-      RCON::Client.open("localhost", server.local_address.port, TEST_PASSWORD) do |client|
+  describe "test auth" do
+    it "address, port, password" do
+      run_test_server do |server|
+        RCON::Client.open("localhost", server.local_address.port, TEST_PASSWORD) do |client|
+        end
+      end
+    end
+
+    it "URI" do
+      run_test_server do |server|
+        RCON::Client.open(URI.new("rcon", "localhost", server.local_address.port, password: TEST_PASSWORD)) do |client|
+        end
       end
     end
   end

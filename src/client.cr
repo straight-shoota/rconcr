@@ -2,7 +2,7 @@
 #
 # ```
 # RCON::Client.open(address, port, password) do |client|
-#  client.command "say Hello from RCON =)"
+#   client.command "say Hello from RCON =)"
 # end
 # ```
 #
@@ -34,10 +34,10 @@ class RCON::Client
   # with *password*.
   # Yields the client instance to the block and ensures the connection is
   # closed after returning.
-  def self.open(address, port, password, & : self ->)
+  def self.open(address : String, port : Int32, password : String?, & : self ->)
     TCPSocket.open(address, port) do |socket|
       client = new(socket)
-      client.authenticate(password)
+      client.authenticate(password) if password
       begin
         yield client
       ensure
@@ -53,7 +53,7 @@ class RCON::Client
   # Yields the client instance to the block and ensures the connection is
   # closed after returning.
   def self.open(uri : URI, & : self ->)
-    open(uri.host, uri.port, uri.password) do |client|
+    open(uri.host.not_nil!, uri.port.not_nil!, uri.password) do |client|
       yield client
     end
   end
@@ -195,7 +195,7 @@ class RCON::Client
 
     case packet.request_id
     when request_id then true
-    when -1 then false
+    when -1         then false
     else
       raise AuthenticationError.new("Unrecognized request_id #{packet.request_id}")
     end
