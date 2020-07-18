@@ -91,7 +91,7 @@ class RCON::Client
 
   # Returns `true` when this client has been closed.
   def closed? : Bool
-    @closed || @socket.closed?
+    !!(@closed || @socket.closed?)
   end
 
   # Sends *command* and returns the server's response.

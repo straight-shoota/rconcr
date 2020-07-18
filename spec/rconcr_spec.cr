@@ -129,4 +129,8 @@ describe RCON do
       end
     end
   end
+
+  it "#closed?" do
+    RCON::Client.new(IO::Memory.new).closed?.should be_a(Bool)
+  end
 end
